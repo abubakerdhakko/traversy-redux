@@ -1,13 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-
+import Posts from './components/Posts'
+import Postform from './components/Postform';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
+      {/* <header className="App-header"> */}
+      {/* <img src={logo} className="App-logo" alt="logo" /> */}
+      {/* <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
@@ -17,8 +18,11 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
-      </header>
+        </a> */}
+      {/* </header> */}
+
+      <Postform></Postform>
+      <Posts></Posts>
     </div>
   );
 }
