@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 
 import Posts from './components/Posts';
 import PostForm from './components/Postform';
+import SearchBar from './components/searchBar';
+// import Loader from './components/loader/Spinner'
 
 import store from './store';
 
@@ -17,6 +19,8 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to React</h1>
           </header>
+          <SearchBar />
+          {/* <Loader /> */}
           <PostForm />
           <hr />
           <Posts />

@@ -1,10 +1,13 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST, UPDATE_POST, SET_CURRENT, CLEAR_CURRENT } from '../actions/types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST, UPDATE_POST, SET_CURRENT, CLEAR_CURRENT, SEARCH_FILTER, CLEAR_Filter } from '../actions/types';
 
 const initialState = {
   items: [],
   item: {},
-  current: null
-
+  current: null,
+  filtered: [],
+  value: '',
+  // works: []
+  // clearSearchField: false,
 };
 
 export default function (state = initialState, action) {
@@ -20,7 +23,6 @@ export default function (state = initialState, action) {
         item: action.payload
       };
     case DELETE_POST:
-      console.log('DELETE_POST_reducer,...state', action.payload, ...state)
       return {
         ...state,
         items: state.items.filter(
@@ -28,23 +30,42 @@ export default function (state = initialState, action) {
         ),
       };
     case SET_CURRENT:
-      // console.log('SET_CURRENT', )
       return {
         ...state,
         current: action.payload
       };
     // edit
     case UPDATE_POST:
-      console.log('UPDATE_POST',)
       return {
         ...state,
-        current: action.payload
-      };
+        items: state.items.map(contact =>
+          contact.id === action.payload.id ? action.payload : contact
+        ),
+        current: null,
+      }
+    // CLEAR_CURRENT
     case CLEAR_CURRENT:
-      console.log('CLEAR_CURRENT')
       return {
         ...state,
         current: null
+      };
+    // search Filter
+    case SEARCH_FILTER:
+      console.log('action.payload', action.payload)
+      return {
+        ...state,
+        filtered: state.items.filter(contact => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          // const regex = action.payload;
+          return contact.title.match(regex) || contact.body.match(regex);
+        })
+      };
+
+    // Clear Filter
+    case CLEAR_Filter:
+      return {
+        ...state,
+        filtered: null,
       };
     default:
       return state;

@@ -25,7 +25,6 @@ class PostForm extends Component {
     if (nextProps.newPost) {
       this.props.posts.unshift(nextProps.newPost);
     }
-
     if (nextProps.currentPost) {
       this.setState({
         title: nextProps.currentPost.title,
@@ -41,7 +40,6 @@ class PostForm extends Component {
         title: this.state.title,
         body: this.state.body
       };
-
       this.props.createPost(post);
     } else {
       console.log('edit Post')
@@ -51,6 +49,10 @@ class PostForm extends Component {
         body: this.state.body
       };
       this.props.editPost(post)
+      this.setState({
+        title: '',
+        body: ''
+      })
     }
   }
 

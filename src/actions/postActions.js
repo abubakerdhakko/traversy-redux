@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST, SET_CURRENT, CLEAR_CURRENT, UPDATE_POST } from './types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST, SET_CURRENT, CLEAR_CURRENT, UPDATE_POST, SEARCH_FILTER, CLEAR_Filter } from './types';
 
 export const fetchPosts = () => dispatch => {
   fetch('https://jsonplaceholder.typicode.com/posts')
@@ -44,17 +44,19 @@ export const deletePost = postId => dispatch => {
 }
 
 export const editPost = post => dispatch => {
-  console.log('editPost', post.id);
-  // fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-  //   method: 'DELETE',
-  //   headers: {
-  //     'content-type': 'application/json'
-  //   },
-  // })
+  fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ post }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
   dispatch({
     type: UPDATE_POST,
     payload: post
   });
+
 }
 export const clearCurrent = () => dispatch => {
   console.log('clearCurrent')
@@ -66,5 +68,20 @@ export const clearCurrent = () => dispatch => {
 
 export const SetCurrent = post => dispatch => {
 
-  dispatch({ type: SET_CURRENT, payload: post });
+  dispatch({
+    type: SET_CURRENT,
+    payload: post
+  });
 };
+
+export const searchFunc = PostFilter => dispatch => {
+  dispatch({
+    type: SEARCH_FILTER,
+    payload: PostFilter
+  });
+};
+export const clearSearch = () => dispatch => {
+  console.log('clearSearch')
+  dispatch({ type: CLEAR_Filter });
+};
+

@@ -3,3 +3,33 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+form.exampleInput input {
+  width: 96%;
+  height: 30px;
+  margin-top: 20px;
+}
+form.exampleInput button {
+  height: 36px;
+}
+.exampleInputBar input {
+  width: 99.5%;
+  height: 40px;
+  margin-top: 30px;
+}
+
+.exampleInputBar input[type="button"] {
+  max-width: 100px;
+}
+.exampleInputBar input[type="submit"] {
+  max-width: 100px;
+}
+.post_Sec {
+  margin-bottom: 20px;
+}
+.redColor{
+  color: red;
+}
+.our-services .left-image {
+  /* margin-right: 45px; */
+  margin-bottom: 60px;
+}
