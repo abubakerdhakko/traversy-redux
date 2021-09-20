@@ -7,26 +7,27 @@ import { fetchPosts } from '../actions/postActions';
 import { deletePost } from '../actions/postActions';
 import { SetCurrent } from '../actions/postActions';
 
-import ReactPaginate from 'react-paginate';
+import Pagination from "react-js-pagination";
 
 
 
 class Posts extends Component {
-
   constructor(props) {
-    super(props)
-
+    super(props);
     this.state = {
-      offset: 0,
-      tableData: [],
-      orgtableData: [],
-      perPage: 10,
-      currentPage: 0
-    }
-
-    this.handlePageClick = this.handlePageClick.bind(this);
-
+      activePage: 15,
+      projectList: '',
+      itemPerPage: 5,
+    };
   }
+
+
+  handlePageChange(pageNumber) {
+
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
+  }
+
   componentWillMount() {
     this.props.fetchPosts();
   }
@@ -45,34 +46,10 @@ class Posts extends Component {
 
   render() {
 
-    // <Fragment>
-    //   {contacts !== null && !loading ? (
-    //     <TransitionGroup>
-    //       {filtered !== null
-    //         ? filtered.map(contact => (
-    //             <CSSTransition
-    //               key={contact._id}
-    //               timeout={500}
-    //               classNames='item'
-    //             >
-    //               <ContactItem contact={contact} />
-    //             </CSSTransition>
-    //           ))
-    //         : contacts.map(contact => (
-    //             <CSSTransition
-    //               key={contact._id}
-    //               timeout={500}
-    //               classNames='item'
-    //             >
-    //               <ContactItem contact={contact} />
-    //             </CSSTransition>
-    //           ))}
-    //     </TransitionGroup>
-    //   ) : (
-    //     <Spinner />
-    //   )}
-    // </Fragment>
 
+    var indexOfLastTodo = this.state.activePage * this.state.itemPerPage;
+    var indexOfFirstTodo = indexOfLastTodo - this.state.itemPerPage;
+    var renderedProjects = this.props.posts.slice(indexOfFirstTodo, indexOfLastTodo);
 
     return (
       <div className="post_Sec">
@@ -93,7 +70,7 @@ class Posts extends Component {
             // < h1 className="redColor">filteredPosts</h1>
 
             :
-            this.props.posts.map((post, index) => (
+            renderedProjects.map((post, index) => (
               <div key={index}>
                 <h3>
                   {/* <span>{post.id}</span>- */}
@@ -104,8 +81,16 @@ class Posts extends Component {
               </div>
             ))
 
-            
+
         }
+        <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={this.state.itemPerPage}
+          totalItemsCount={this.props.posts.length}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange.bind(this)}
+        />
+
       </div>
     );
   }
@@ -126,3 +111,14 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { fetchPosts, deletePost, SetCurrent })(Posts);
+
+
+
+
+
+
+
+
+
+
+

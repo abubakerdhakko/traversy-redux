@@ -6,7 +6,8 @@ export const SET_CURRENT = 'SET_CURRENT';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const CLEAR_Filter = 'CLEAR_Filter';
 export const SEARCH_FILTER = 'SEARCH_FILTER';
-
-
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+// Auth
+export const GET_LOGS = 'GET_LOGS';
 
 

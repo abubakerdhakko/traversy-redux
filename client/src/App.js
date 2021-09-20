@@ -11,6 +11,9 @@ import SearchBar from './components/searchBar';
 import store from './store';
 
 class App extends Component {
+  
+
+
   render() {
     return (
       <Provider store={store}>
@@ -24,6 +27,7 @@ class App extends Component {
           <PostForm />
           <hr />
           <Posts />
+          
         </div>
       </Provider>
     );
