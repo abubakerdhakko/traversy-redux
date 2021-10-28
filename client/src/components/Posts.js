@@ -45,7 +45,7 @@ class Posts extends Component {
   }
 
   render() {
-
+    console.log("tyope", typeof this.props.filteredPosts)
 
     var indexOfLastTodo = this.state.activePage * this.state.itemPerPage;
     var indexOfFirstTodo = indexOfLastTodo - this.state.itemPerPage;
@@ -55,33 +55,29 @@ class Posts extends Component {
       <div className="post_Sec">
         <h1>Posts</h1>
         {
-          this.props.filteredPosts !== null ?
-
+          Object.keys(this.props.filteredPosts).length !== 0
+            ?
             this.props.filteredPosts.map((post, index) => (
               <div key={index}>
                 <h1 className="redColor">filteredPosts</h1>
 
-                <h3>{post.title}</h3>
-                <p>{post.body}</p>
+                <h3>{post}</h3>
+                {/* <p>{post.body}</p> */}
                 <button onClick={() => this.props.deletePost(post.id)}>X</button>
                 <button onClick={() => this.props.SetCurrent(post)}>Update Post</button>
               </div>
             ))
-            // < h1 className="redColor">filteredPosts</h1>
-
             :
             renderedProjects.map((post, index) => (
               <div key={index}>
                 <h3>
-                  {/* <span>{post.id}</span>- */}
+                  <span>{post.id}</span>-
                   {post.title}</h3>
                 <p>{post.body}</p>
                 <button onClick={() => this.props.deletePost(post.id)}>X</button>
                 <button onClick={() => this.props.SetCurrent(post)}>Update Post</button>
               </div>
             ))
-
-
         }
         <Pagination
           activePage={this.state.activePage}

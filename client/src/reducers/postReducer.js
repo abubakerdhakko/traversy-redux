@@ -52,20 +52,28 @@ export default function (state = initialState, action) {
     // search Filter
     case SEARCH_FILTER:
       console.log('action.payload', action.payload)
-      return {
-        ...state,
-        filtered: state.items.filter(contact => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
-          // const regex = action.payload;
-          return contact.title.match(regex) || contact.body.match(regex);
-        })
-      };
+    // let arr = [];
+    // state.items.filter(contact => {
+
+
+    //   // const regex = action.payload;
+
+    //   if (contact.title + "".search(action.payload))
+    //     console.log("contact.title", contact.title)
+    //   arr.push(contact.title)
+
+    // })
+
+    // return {
+    //   ...state,
+    //   filtered: arr
+    // };
 
     // Clear Filter
     case CLEAR_Filter:
       return {
         ...state,
-        filtered: null,
+        filtered: [],
       };
     default:
       return state;
