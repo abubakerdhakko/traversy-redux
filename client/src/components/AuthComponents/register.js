@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginAction } from '../../actions/authAction'
+import { loginAction, registerAction } from '../../actions/authAction'
 
 
 
 
 
-class login extends Component {
+class register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +26,6 @@ class login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-
-
   onSubmit(e) {
     e.preventDefault();
     const post = {
@@ -35,23 +33,21 @@ class login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log('post', post)
-    // loginAction(post)
+    console.log('reg Component')
+    registerAction(post);
+
+
   }
 
   render() {
-
-
-
     return (
       <div className="post_Sec">
-
         <div className='form-container'>
           <h1>
             Account <span className='text-primary'>Register</span>
           </h1>
           <form onSubmit={this.onSubmit}>
-          <div className='form-group'>
+            <div className='form-group'>
               <label htmlFor='email'>Name</label>
               <input
                 id='name'
@@ -61,9 +57,8 @@ class login extends Component {
                 onChange={this.onChange}
                 required
               />
-            </div>            
+            </div>
             <div className='form-group'>
-              
               <label htmlFor='email'>Email Address</label>
               <input
                 id='email'
@@ -87,7 +82,7 @@ class login extends Component {
             </div>
             <input
               type='submit'
-              value='Login'
+              value='Register'
               className='btn btn-primary btn-block'
             />
           </form>
@@ -97,7 +92,7 @@ class login extends Component {
   }
 }
 
-login.propTypes = {
+register.propTypes = {
   // fetchPosts: PropTypes.func.isRequired,
   // posts: PropTypes.array.isRequired,
   // newPost: PropTypes.object,
@@ -107,10 +102,9 @@ login.propTypes = {
 const mapStateToProps = state => ({
   authUser: state.auth.user,
   authentication: state.auth.isAuthenticated,
-
 });
 
-export default connect(mapStateToProps, { loginAction })(login);
+export default connect(mapStateToProps, { loginAction, registerAction })(register);
 
 
 

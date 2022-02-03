@@ -1,40 +1,45 @@
-import { USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } from './types';
+import { USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, Check_Error, REGISTER_SUCCESS, Check, REGISTER_FAIL } from './types';
 import axios from 'axios';
 import setAuthToken from '../utilties/setAuthToken'
 
-// Register User
-// const register = async formData => {
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   };
+// Register
+export const registerActio = (formData) => {
+  return function (dispatch) {
+    console.log('here');
+    dispatch({
+      type: Check,
+      payload: formData
+    });
+  }
+}
 
-//   try {
-//     const res = await axios.post('/api/users', formData, config);
-
-//     dispatch({
-//       type: REGISTER_SUCCESS,
-//       payload: res.data
-//     });
-
-//     loadUser();
-//   } catch (err) {
-//     dispatch({
-//       type: REGISTER_FAIL,
-//       payload: err.response.data.msg
-//     });
-//   }
-// };
-
-
+export const registerAction = async (formData, dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.post('http://localhost:5000/api/users', formData, config);
+    console.log('res')
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: formData
+    });
+    // loadUser();
+  } catch (err) {
+    console.log('err', err.response)
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: err.response
+    });
+  }
+};
 // Load User
 export const loadUser = async (dispatch) => {
   setAuthToken(localStorage.token);
-
   try {
     const res = await axios.get('http://localhost:5000/api/auth');
-
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -43,8 +48,6 @@ export const loadUser = async (dispatch) => {
     dispatch({ type: AUTH_ERROR });
   }
 };
-
-
 // Login User
 export const loginAction = async (dispatch, formData) => {
   const config = {
@@ -52,7 +55,6 @@ export const loginAction = async (dispatch, formData) => {
       'Content-Type': 'application/json'
     }
   };
-
   try {
     const res = await axios.post('http://localhost:5000/api/auth', formData, config);
     console.log('logonAction')
@@ -60,7 +62,6 @@ export const loginAction = async (dispatch, formData) => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-
     loadUser();
   } catch (err) {
     dispatch({

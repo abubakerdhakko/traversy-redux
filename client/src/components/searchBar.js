@@ -9,18 +9,39 @@ class searchBar extends Component {
         super(props);
         this.state = {
             filter: '',
+            typing: false,
+            typingTimeout: 0
         }
     }
     componentDidMount() {
         this.props.clearSearch()
     }
     handleChange = event => {
-        this.setState({ filter: event.target.value });
-        if (event.target.value === "") {
-            this.props.clearSearch()
-        } else {
-            this.props.searchFunc(event.target.value)
+
+
+        // this.setState({ filter: event.target.value });
+        // if (event.target.value === "") {
+
+
+        //     this.props.clearSearch()
+        // } else {
+
+        //     this.props.searchFunc(event.target.value)
+        // }
+
+        const self = this;
+
+        if (self.state.typingTimeout) {
+            clearTimeout(self.state.typingTimeout);
         }
+
+        self.setState({
+            filter: event.target.value,
+            typing: false,
+            typingTimeout: setTimeout(function () {
+                self.props.searchFunc(self.state.filter);
+            }, 1000)
+        });
 
     };
 

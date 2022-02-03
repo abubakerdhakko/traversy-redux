@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPost } from '../actions/postActions';
-import { clearCurrent } from '../actions/postActions'
-import { editPost } from '../actions/postActions';
+import { editPost, createPost, clearCurrent } from '../actions/postActions';
 
 class PostForm extends Component {
   constructor(props) {
@@ -12,7 +10,6 @@ class PostForm extends Component {
       title: '',
       body: ''
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -32,7 +29,7 @@ class PostForm extends Component {
       })
     }
   }
-
+  
   onSubmit(e) {
     e.preventDefault();
     if (this.props.currentPost === null) {
@@ -55,7 +52,7 @@ class PostForm extends Component {
       })
     }
   }
-
+  
   render() {
     return (
       <div>
@@ -94,8 +91,9 @@ class PostForm extends Component {
 PostForm.propTypes = {
   createPost: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
 
+const mapStateToProps = state => ({
   currentPost: state.posts.current
 });
+
 export default connect(mapStateToProps, { createPost, clearCurrent, editPost })(PostForm);

@@ -9,6 +9,10 @@ export const SEARCH_FILTER = 'SEARCH_FILTER';
 // Auth
 export const USER_LOADED = 'USER_LOADED';
 
+export const Check = 'Check';
+export const Check_Error = 'Check_Error';
+
+
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const AUTH_ERROR = 'AUTH_ERROR';

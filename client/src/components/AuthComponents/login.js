@@ -38,7 +38,7 @@ class login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log('post', post)
+    console.log('onSubmit', post)
     loginAction(post)
   }
 

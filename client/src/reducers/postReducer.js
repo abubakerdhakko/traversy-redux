@@ -6,6 +6,7 @@ const initialState = {
   current: null,
   filtered: [],
   value: '',
+  a: [],
   // works: []
   // clearSearchField: false,
 };
@@ -29,6 +30,7 @@ export default function (state = initialState, action) {
           item => item.id !== action.payload
         ),
       };
+    // SET_CURRENT
     case SET_CURRENT:
       return {
         ...state,
@@ -51,24 +53,16 @@ export default function (state = initialState, action) {
       };
     // search Filter
     case SEARCH_FILTER:
-      console.log('action.payload', action.payload)
-    // let arr = [];
-    // state.items.filter(contact => {
 
-
-    //   // const regex = action.payload;
-
-    //   if (contact.title + "".search(action.payload))
-    //     console.log("contact.title", contact.title)
-    //   arr.push(contact.title)
-
-    // })
-
-    // return {
-    //   ...state,
-    //   filtered: arr
-    // };
-
+      return {
+        ...state,
+        filtered: state.items.filter(contact => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          // const Srring_regex = JSON.stringify(action.payload);vvvv
+          // console.log('regex', typeof Srring_regex)
+          return contact.title.match(regex) || contact.body.match(regex)
+        })
+      };
     // Clear Filter
     case CLEAR_Filter:
       return {
@@ -79,3 +73,16 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
